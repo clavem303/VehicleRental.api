@@ -1,14 +1,13 @@
 package tech.clavem303.resources;
 
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import tech.clavem303.dto.CreateVehicleRequest;
+import tech.clavem303.dto.UpdateVehicleStatusRequest;
 import tech.clavem303.dto.VehicleResponse;
 import tech.clavem303.model.Vehicle;
+import tech.clavem303.model.VehicleStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,5 +47,20 @@ public class VehicleResource {
         return Response.ok(new VehicleResponse(vehicleOptional.get())).build();
     }
 
+    @PATCH
+    @Path("/{id}")
+    @Transactional
+    public Response updateStatus(@PathParam("id") Long id, UpdateVehicleStatusRequest request) {
+        Vehicle vehicle = Vehicle.findById(id);
 
+        if (vehicle == null) return Response.status(Response.Status.NOT_FOUND).build();
+
+        try {
+            vehicle.setStatus(request.status());
+        } catch (IllegalStateException e) {
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+
+        return Response.ok(new VehicleResponse(vehicle)).build();
+    }
 }
