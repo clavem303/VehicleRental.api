@@ -4,19 +4,21 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 import tech.clavem303.dto.CreateVehicleRequest;
 import tech.clavem303.dto.VehicleResponse;
 import tech.clavem303.model.Vehicle;
 
 import java.util.List;
+import java.util.Optional;
 
 @Path("/api/v1/vehicles")
 public class VehicleResource {
 
     @POST
     @Transactional
-    public Response create(CreateVehicleRequest request){
+    public Response create(CreateVehicleRequest request) {
         Vehicle vehicle = new Vehicle(request.model(), request.year(), request.engine(), request.brand());
 
         vehicle.persist();
@@ -35,5 +37,16 @@ public class VehicleResource {
                 .toList();
         return Response.ok(vehicleResponseList).build();
     }
+
+    @GET
+    @Path("/{id}")
+    public Response getById(@PathParam("id") Long id) {
+        Optional<Vehicle> vehicleOptional = Vehicle.findByIdOptional(id);
+
+        if (vehicleOptional.isEmpty()) return Response.status(Response.Status.NOT_FOUND).build();
+
+        return Response.ok(new VehicleResponse(vehicleOptional.get())).build();
+    }
+
 
 }
