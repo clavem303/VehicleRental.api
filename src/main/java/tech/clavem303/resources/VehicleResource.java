@@ -7,7 +7,6 @@ import tech.clavem303.dto.CreateVehicleRequest;
 import tech.clavem303.dto.UpdateVehicleStatusRequest;
 import tech.clavem303.dto.VehicleResponse;
 import tech.clavem303.model.Vehicle;
-import tech.clavem303.model.VehicleStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,5 +61,20 @@ public class VehicleResource {
         }
 
         return Response.ok(new VehicleResponse(vehicle)).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Transactional
+    public Response delete(@PathParam("id") Long id) {
+        Vehicle vehicle = Vehicle.findById(id);
+
+        if (vehicle == null) return Response.status(404).build();
+
+        if (vehicle.isRented()) return Response.status(Response.Status.CONFLICT).build();
+
+        vehicle.delete();
+
+        return Response.noContent().build();
     }
 }
