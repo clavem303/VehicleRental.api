@@ -1,12 +1,12 @@
-package tech.clavem303.resources;
+package tech.clavem303.vehicle.resource;
 
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-import tech.clavem303.dto.CreateVehicleRequest;
-import tech.clavem303.dto.UpdateVehicleStatusRequest;
-import tech.clavem303.dto.VehicleResponse;
-import tech.clavem303.model.Vehicle;
+import tech.clavem303.vehicle.dto.CreateVehicleRequest;
+import tech.clavem303.vehicle.dto.UpdateVehicleStatusRequest;
+import tech.clavem303.vehicle.dto.VehicleResponse;
+import tech.clavem303.vehicle.model.Vehicle;
 
 import java.util.List;
 import java.util.Optional;

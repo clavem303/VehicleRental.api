@@ -1,7 +1,7 @@
-package tech.clavem303.dto;
+package tech.clavem303.vehicle.dto;
 
-import tech.clavem303.model.Vehicle;
-import tech.clavem303.model.VehicleStatus;
+import tech.clavem303.vehicle.model.Vehicle;
+import tech.clavem303.vehicle.model.VehicleStatus;
 
 public record VehicleResponse(
         Long id,

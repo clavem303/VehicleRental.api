@@ -1,4 +1,4 @@
-package tech.clavem303.model;
+package tech.clavem303.vehicle.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
@@ -31,8 +31,7 @@ public class Vehicle extends PanacheEntityBase {
     private int year;
     private String engine;
 
-    protected Vehicle() {
-    }
+    protected Vehicle() {}
 
     public Vehicle(String model, int year, String engine, String brand) {
 

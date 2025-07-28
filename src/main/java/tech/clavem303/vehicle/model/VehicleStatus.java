@@ -1,4 +1,4 @@
-package tech.clavem303.model;
+package tech.clavem303.vehicle.model;
 
 public enum VehicleStatus {
     AVAILABLE,
